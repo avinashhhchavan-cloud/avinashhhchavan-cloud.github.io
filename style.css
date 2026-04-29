@@ -1,0 +1,129 @@
+:root {
+    --bg: #050505;
+    --primary: #8a2be2;
+    --secondary: #00f2ff;
+    --accent: #ff00c1;
+    --glass: rgba(255, 255, 255, 0.05);
+    --border: rgba(255, 255, 255, 0.1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: var(--bg);
+    color: white;
+    overflow-x: hidden;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(var(--primary), var(--secondary));
+    border-radius: 10px;
+}
+
+/* Background Blobs */
+.blob-c {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    z-index: -1;
+    filter: blur(80px);
+}
+.blob {
+    position: absolute;
+    width: 400px; height: 400px;
+    border-radius: 50%;
+    opacity: 0.4;
+    animation: float 20s infinite alternate;
+}
+.one { background: var(--primary); top: -10%; left: -10%; }
+.two { background: var(--accent); bottom: -10%; right: -10%; animation-delay: -5s; }
+.three { background: var(--secondary); top: 40%; left: 40%; animation-delay: -10s; }
+
+@keyframes float {
+    from { transform: translate(0,0) scale(1); }
+    to { transform: translate(100px, 50px) scale(1.2); }
+}
+
+/* Navbar Glassmorphism */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 8%;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    background: var(--glass);
+    backdrop-filter: blur(15px);
+    border-bottom: 1px solid var(--border);
+}
+
+.logo { font-size: 1.5rem; font-weight: 800; letter-spacing: 2px; }
+.logo span { color: var(--secondary); }
+
+.nav-links { display: flex; list-style: none; align-items: center; }
+.nav-links li { margin-left: 30px; }
+.nav-links a { text-decoration: none; color: #ccc; transition: 0.3s; }
+.nav-links a:hover { color: var(--secondary); text-shadow: 0 0 10px var(--secondary); }
+
+/* Hero Section */
+.hero {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0 10%;
+}
+
+.gradient-text {
+    background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 900;
+}
+
+.hero h1 { font-size: 4.5rem; margin-bottom: 20px; line-height: 1.1; }
+
+/* Glass Cards */
+.project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    padding: 100px 8%;
+}
+
+.glass-card {
+    background: var(--glass);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    overflow: hidden;
+    transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    backdrop-filter: blur(10px);
+}
+
+.glass-card:hover {
+    transform: translateY(-15px) scale(1.02);
+    border-color: var(--secondary);
+    box-shadow: 0 20px 40px rgba(0, 242, 255, 0.2);
+}
+
+.card-img img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    filter: grayscale(40%);
+    transition: 0.5s;
+}
+
+.glass-card:hover img { filter: grayscale(0%); }
+
+.card-info { padding: 25px; }
