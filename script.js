@@ -1,36 +1,20 @@
-// Intersection Observer for Reveal Effects
-const revealElements = document.querySelectorAll('.reveal');
-
-const scrollObserver = new IntersectionObserver((entries) => {
+// Fade-in on Scroll
+const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('active');
-        }
+        if (entry.isIntersecting) entry.target.classList.add('active');
     });
-}, { threshold: 0.15 });
+}, { threshold: 0.1 });
 
-revealElements.forEach(el => {
-    scrollObserver.observe(el);
-});
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-// Parallax effect for Background Blobs
+// Simple cursor-tracking parallax for background blobs
 document.addEventListener('mousemove', (e) => {
-    const x = e.clientX / window.innerWidth;
-    const y = e.clientY / window.innerHeight;
-    
-    const blobs = document.querySelectorAll('.blob');
-    blobs.forEach((blob, index) => {
-        const speed = (index + 1) * 20;
-        blob.style.transform = `translate(${x * speed}px, ${y * speed}px)`;
-    });
-});
+    const { clientX, clientY } = e;
+    const xRatio = clientX / window.innerWidth;
+    const yRatio = clientY / window.innerHeight;
 
-// Smooth scroll for nav links
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        document.querySelector(this.getAttribute('href')).scrollIntoView({
-            behavior: 'smooth'
-        });
+    document.querySelectorAll('.blob').forEach((blob, i) => {
+        const factor = (i + 1) * 15;
+        blob.style.transform = `translate(${xRatio * factor}px, ${yRatio * factor}px)`;
     });
 });
